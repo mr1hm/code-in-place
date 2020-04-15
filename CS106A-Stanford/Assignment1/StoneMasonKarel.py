@@ -55,9 +55,8 @@ def turn_right():
     """
     Turns Karel right by turning left three times.
     """
-    turn_left()
-    turn_left()
-    turn_left()
+    for i in range(3):
+        turn_left()
 
 
 # There is no need to edit code beyond this point
