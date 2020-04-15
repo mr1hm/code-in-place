@@ -12,7 +12,8 @@ sample worlds supplied in the starter folder.
 
 def main():
     """
-    fix_pillars() is repeated four times in a for loop. Four represents the number of pillars given in each world.
+    fix_pillars() is repeated four times in a for loop. Four represents the number of supporting
+    pillars given in each world.
     """
     for x in range(4):
         fix_pillars()
@@ -31,8 +32,6 @@ def fix_pillars():
     except in the opposite direction as long as the front_is_clear().
     When Karel reaches the bottom of a pillar, it will turn_left() and check to see if the
     front_is_clear(). If the front_is_clear(), Karel will proceed to move four times to the East.
-    This process will repeat for a total of four times. Four represents the number of pillars that are
-    present in any given world for this assignment.
     """
     turn_left()
     while front_is_clear():
