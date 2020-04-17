@@ -20,7 +20,47 @@ def main():
     starting to write your own code. You should also delete this
     comment and replace it with a better, more descriptive one.
     """
-    pass
+    paint_first_row()
+    reverse_direction()
+    eliminate_gray_corners()
+    # turn_left_and_move()
+    # eliminate_gray_corners()
+
+
+def paint_first_row():
+    paint_corner(BLUE)
+    while front_is_clear():
+        move()
+        if corner_color_is(BLANK):
+            paint_corner(GRAY)
+    paint_corner(BLUE)
+
+
+def eliminate_gray_corners():
+    if corner_color_is(BLUE):
+        move()
+        if corner_color_is(GRAY):
+            paint_corner(BLUE)
+            move()
+            while corner_color_is(GRAY):
+                move()
+
+
+def move_while_paint_is_gray():
+    while corner_color_is(GRAY):
+        move()
+
+
+def reverse_direction():
+    turn_left()
+    turn_left()
+
+
+def return_to_beeper_position():
+    turn_left()
+    turn_left()
+    while no_beepers_present():
+        move()
 
 
 # There is no need to edit code beyond this point
