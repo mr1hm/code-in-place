@@ -40,8 +40,13 @@ def place_beepers_on_row():
     reverse_direction()
     while no_beepers_present():  # at this point, Karel should have removed the outer-most beepers and we'll have him move until there are beepers present.
         move()
-    if front_is_blocked():
-        put_beeper()
+    if beepers_present():
+        move()
+        if beepers_present():
+            move()
+            if beepers_present():
+                pick_beeper()
+
 
 
 def eliminate_gray_corners():
