@@ -33,15 +33,38 @@ def place_beepers_on_row():
         put_beeper()
         move()
     reverse_direction()  # when Karel stops, we know he's reached the wall, so we can simply reverse his direction.
-    while front_is_clear():  # same idea here.
+    while front_is_clear():  # same idea as above here except in the opposite direction.
         move()
     if beepers_present():  # while also the same idea, Karel will pick up the beeper that's on the first corner of the wall.
         pick_beeper()
     reverse_direction()
-    while no_beepers_present():  # at this point, Karel should have removed the outer-most beepers and we'll have him move until there are beepers present.
+    move()
+    # This is where we start repeating similar actions to eliminate outer-most beepers.
+    if beepers_present():  # pick outer-most beeper.
+        if front_is_blocked():
+            reverse_direction()
+        else:
+            pick_beeper()
+            while front_is_clear():  # move to the other wall.
+                move()
+            reverse_direction()
+            move()
+    if beepers_present():  # pick outer-most beeper.
+        if front_is_blocked():
+            reverse_direction()
+        else:
+            pick_beeper()
+            while front_is_clear():  # move to the other wall.
+                move()
+        reverse_direction()
         move()
-    if front_is_blocked():
-        put_beeper()
+    while no_beepers_present():  # check for outer-most beepers
+        if front_is_clear():
+            move()
+    while beepers_present():
+        if front_is_clear():
+            pick_beeper()
+            move()
 
 
 def eliminate_gray_corners():
