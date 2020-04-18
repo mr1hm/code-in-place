@@ -21,7 +21,8 @@ def main():
     comment and replace it with a better, more descriptive one.
     """
     place_beepers_on_row()
-    # reverse_direction()
+    remove_outer_most_beepers()
+    # check_surrounding()
     # eliminate_gray_corners()
     # check_surrounding_corners()
     # turn_left_and_move()
@@ -29,6 +30,10 @@ def main():
 
 
 def place_beepers_on_row():
+    """
+    Put beepers on the entire first row and remove outer-most beepers.
+    This will effectively make a boundary on which Karel can move.
+    """
     while front_is_clear():  # keep putting beepers on all corners until front_is_blocked().
         put_beeper()
         move()
@@ -39,86 +44,39 @@ def place_beepers_on_row():
         pick_beeper()
     reverse_direction()
     move()
-    # This is where we start repeating similar actions to eliminate outer-most beepers.
-    if beepers_present():  # pick outer-most beeper.
-        if front_is_blocked():
-            reverse_direction()
-        else:
-            pick_beeper()
-            while front_is_clear():  # move to the other wall.
-                move()
-            reverse_direction()
+
+
+def remove_outer_most_beepers():
+    if beepers_present():
+        pick_beeper()
+        move()
+        while beepers_present():  # Karel will move until he lands on the first corner with no beeper.
             move()
-    if beepers_present():  # pick outer-most beeper.
-        if front_is_blocked():
-            reverse_direction()
-        else:
-            pick_beeper()
-            while front_is_clear():  # move to the other wall.
-                move()
-        reverse_direction()
-        move()
-    while no_beepers_present():  # check for outer-most beepers
-        if front_is_clear():
-            move()
-    while beepers_present():
-        if front_is_clear():
-            pick_beeper()
-            move()
+            if front_is_blocked():  # Do we need this?
+                reverse_direction()
+        while no_beepers_present():  # Karel will continue to move as long as there are no beepers.
+            move()  # We can safely assume that Karel will move until he is standing on a corner with a beeper.
+        pick_beeper()
 
 
-def eliminate_gray_corners():
-    if corner_color_is(BLUE):  # if corner color is blue, move to next corner.
-        move()
-    while corner_color_is(GRAY):  # paint outer gray corners orange, effectively making orange the new boundary.
-        paint_corner(ORANGE)
-        move()
-    if corner_color_is(BLUE):
-        reverse_direction()
-        move()
-    if corner_color_is(ORANGE):
-        move()
-        paint_corner(PINK)
-        move()
-    while front_is_clear():
-        move()
-    reverse_direction()
-    while corner_color_is(BLUE) or corner_color_is(ORANGE):
-        move()
+def check_surrounding():
 
 
-def check_surrounding_corners():
-    if corner_color_is(PINK):
-        move()
-    if corner_color_is(ORANGE):
-        reverse_direction()
-        move()
-        move()
-        if corner_color_is(ORANGE):
-            reverse_direction()
-            move()
-        else:
-            move()
 
 
-def move_while_paint_is_gray():
-    while corner_color_is(GRAY):
-        move()
-
-
-def reverse_direction():
-    turn_left()
-    turn_left()
-
-
-def return_to_beeper_position():
-    turn_left()
-    turn_left()
-    while no_beepers_present():
-        move()
+# def reverse_direction():
+#     turn_left()
+#     turn_left()
+#
+#
+# def return_to_beeper_position():
+#     turn_left()
+#     turn_left()
+#     while no_beepers_present():
+#         move()
 
 
 # There is no need to edit code beyond this point
 
-if __name__ == "__main__":
-    run_karel_program()
+    if __name__ == "__main__":
+        run_karel_program()
