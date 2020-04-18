@@ -21,7 +21,8 @@ def main():
     comment and replace it with a better, more descriptive one.
     """
     place_beepers_on_row()
-    # reverse_direction()
+    remove_outer_most_beepers()
+    # check_surrounding()
     # eliminate_gray_corners()
     # check_surrounding_corners()
     # turn_left_and_move()
@@ -29,6 +30,10 @@ def main():
 
 
 def place_beepers_on_row():
+    """
+    Put beepers on the entire first row and remove outer-most beepers.
+    This will effectively make a boundary on which Karel can move.
+    """
     while front_is_clear():  # keep putting beepers on all corners until front_is_blocked().
         put_beeper()
         move()
@@ -38,49 +43,38 @@ def place_beepers_on_row():
     if beepers_present():  # while also the same idea, Karel will pick up the beeper that's on the first corner of the wall.
         pick_beeper()
     reverse_direction()
-    while no_beepers_present():  # at this point, Karel should have removed the outer-most beepers and we'll have him move until there are beepers present.
-        move()
+    move()
+
+
+def remove_outer_most_beepers():
     if beepers_present():
+        pick_beeper()
         move()
-        if beepers_present():
+        while beepers_present():  # Karel will move until he lands on the first corner with no beeper.
             move()
-            if beepers_present():
-                pick_beeper()
+            if front_is_blocked():  # Do we need this?
+                reverse_direction()
+        while no_beepers_present():  # Karel will continue to move as long as there are no beepers.
+            move()  # We can safely assume that Karel will move until he is standing on a corner with a beeper.
+        pick_beeper()
+
+
+def check_surrounding():
 
 
 
-def eliminate_gray_corners():
-    if corner_color_is(BLUE):  # if corner color is blue, move to next corner.
-        move()
-    while corner_color_is(GRAY):  # paint outer gray corners orange, effectively making orange the new boundary.
-        paint_corner(ORANGE)
-        move()
-    if corner_color_is(BLUE):
-        reverse_direction()
-        move()
-    if corner_color_is(ORANGE):
-        move()
-        paint_corner(PINK)
-        move()
-    while front_is_clear():
-        move()
-    reverse_direction()
-    while corner_color_is(BLUE) or corner_color_is(ORANGE):
-        move()
-
-
-def check_surrounding_corners():
-    if corner_color_is(PINK):
-        move()
-    if corner_color_is(ORANGE):
-        reverse_direction()
-        move()
-        move()
-        if corner_color_is(ORANGE):
-            reverse_direction()
-            move()
-        else:
-            move()
+# def check_surrounding_corners():
+#     if corner_color_is(PINK):
+#         move()
+#     if corner_color_is(ORANGE):
+#         reverse_direction()
+#         move()
+#         move()
+#         if corner_color_is(ORANGE):
+#             reverse_direction()
+#             move()
+#         else:
+#             move()
 
 
 def move_while_paint_is_gray():
