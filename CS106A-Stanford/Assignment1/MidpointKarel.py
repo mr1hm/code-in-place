@@ -60,10 +60,47 @@ def remove_outer_most_beepers():
 def check_surrounding():  # This function assumes Karel is now standing on a corner with no beeper.
     while no_beepers_present():  # Karel will move until it reaches a corner with a beeper.
         move()  # We can safely assume that this is the outer-most beeper.
-    if beepers_present():  # If a beeper is present, we will hard code a manual check for other beepers.
+    if beepers_present():
+        """
+        Since we know the largest world is 8x8, if a beeper is present,
+        we will hard code a manual check for other beepers.
+        The else statements will handle smaller worlds and the If statements
+        will handle larger worlds.
+        """
         move()
         if beepers_present():  # If a beeper is present here, this means that there are 2 beepers.
             move()
+            if beepers_present():  # If a beeper is present here, this means that there are 3 beepers.
+                move()
+                if beepers_present():  # If a beeper is present here, this means that there are 4 beepers.
+                    move()
+                    if beepers_present():
+                        move()
+                    else:  # The code in here is specifically for the 8x8 (largest) world.
+                        reverse_direction()
+                        while no_beepers_present():
+                            move()
+                        remove_outer_most_beepers()
+                        while no_beepers_present():
+                            move()
+                        if beepers_present():
+                            move()
+                            if beepers_present():
+                                move()
+                                if beepers_present():
+                                    move()
+                                else:  # This code block handles removing 1 of 2 beepers remaining and landing on the beeper.
+                                    reverse_direction()
+                                    move()
+                                    pick_beeper()
+                                    move()
+                else:
+                    reverse_direction()
+                    while no_beepers_present():
+                        move()
+            else:
+                reverse_direction()
+                move()
         else:  # If there is no 2nd beeper. Stop Karel, turn him around, and move back one corner to land on the midpoint.
             reverse_direction()
             move()
