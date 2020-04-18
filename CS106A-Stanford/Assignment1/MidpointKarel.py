@@ -108,18 +108,8 @@ def check_surrounding():  # This function assumes Karel is now standing on a cor
         reverse_direction()
 
 
-# def check_surrounding_corners():
-#     if corner_color_is(PINK):
-#         move()
-#     if corner_color_is(ORANGE):
-#         reverse_direction()
-#         move()
-#         move()
-#         if corner_color_is(ORANGE):
-#             reverse_direction()
-#             move()
-#         else:
-#             move()
+# def check_smaller_worlds():
+#     if beepers_present():
 
 
 # def move_while_paint_is_gray():
