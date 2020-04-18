@@ -23,10 +23,6 @@ def main():
     place_beepers_on_row()
     remove_outer_most_beepers()
     check_surrounding()
-    # eliminate_gray_corners()
-    # check_surrounding_corners()
-    # turn_left_and_move()
-    # eliminate_gray_corners()
 
 
 def place_beepers_on_row():
