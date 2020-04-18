@@ -33,6 +33,9 @@ def place_beepers_on_row():
     while front_is_clear():  # keep putting beepers on all corners until front_is_blocked().
         put_beeper()
         move()
+    # if front_is_blocked():  # This if statement is here for a 2x2 world.
+    #     reverse_direction()
+    #     move()
     reverse_direction()  # when Karel stops, we know he's reached the wall, so we can simply reverse his direction.
     while front_is_clear():  # same idea here.
         move()
