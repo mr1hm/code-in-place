@@ -30,36 +30,40 @@ def place_beepers_on_row():
     Put beepers on the entire first row and remove outer-most beepers.
     This will effectively make a boundary on which Karel can move.
     """
-    while front_is_clear():  # keep putting beepers on all corners until front_is_blocked().
+    if front_is_blocked():  # A check for the smallest world (1x1).
         put_beeper()
+    else:
+        while front_is_clear():  # keep putting beepers on all corners until front_is_blocked().
+            put_beeper()
+            move()
+        reverse_direction()  # when Karel stops, we know he's reached the wall, so we can simply reverse his direction.
+        while front_is_clear():  # same idea here.
+            move()
+        if beepers_present():  # while also the same idea, Karel will pick up the beeper that's on the first corner of the wall.
+            pick_beeper()
+        reverse_direction()
         move()
-    # if front_is_blocked():  # This if statement is here for a 2x2 world.
-    #     reverse_direction()
-    #     move()
-    reverse_direction()  # when Karel stops, we know he's reached the wall, so we can simply reverse his direction.
-    while front_is_clear():  # same idea here.
-        move()
-    if beepers_present():  # while also the same idea, Karel will pick up the beeper that's on the first corner of the wall.
-        pick_beeper()
-    reverse_direction()
-    move()
 
 
 def remove_outer_most_beepers():
     if beepers_present():
-        pick_beeper()
-        move()
-        while beepers_present():  # Karel will move until he lands on the first corner with no beeper.
-            move()  # In other words, Karel will move until it has reached the corner adjacent to the wall.
-        reverse_direction()  # Face Karel in the opposite direction.
-        while no_beepers_present():  # Karel will continue to move the opposite direction if there are no beepers.
-            move()  # We can safely assume that Karel will move until he arrives at a corner with a beeper (outer-most beeper).
-        pick_beeper()  # Then Karel will simply pick the outer-most beeper up.
+        if front_is_clear():  # Check to make sure that front_is_clear() (1x1).
+            pick_beeper()
+            move()
+            while beepers_present():  # Karel will move until he lands on the first corner with no beeper.
+                move()  # In other words, Karel will move until it has reached the corner adjacent to the wall.
+            reverse_direction()  # Face Karel in the opposite direction.
+            while no_beepers_present():  # Karel will continue to move the opposite direction if there are no beepers.
+                move()  # We can safely assume that Karel will move until he arrives at a corner with a beeper (outer-most beeper).
+            pick_beeper()  # Then Karel will simply pick the outer-most beeper up.
 
 
 def check_surrounding():  # This function assumes Karel is now standing on a corner with no beeper.
     while no_beepers_present():  # Karel will move until it reaches a corner with a beeper.
-        move()  # We can safely assume that this is the outer-most beeper.
+        if front_is_clear():  # For smaller world (2x2). If the front is clear keep moving.
+            move()  # We can safely assume that this is the outer-most beeper.
+        else:  # If the above condition isn't truthy, Karel will put a beeper down and stop.
+            put_beeper()
     if beepers_present():
         """
         Since we know the largest world is 8x8, if a beeper is present,
