@@ -71,45 +71,52 @@ def check_surrounding():  # This function assumes Karel is now standing on a cor
         The else statements will handle smaller worlds and the If statements
         will handle larger worlds.
         """
-        move()
-        if beepers_present():  # If a beeper is present here, this means that there are 2 beepers.
+        if front_is_clear():  # This check is in place for smaller worlds (2x2 and under).
+            # If the front_is_blocked(), the code will stop executing here. For smaller worlds.
             move()
-            if beepers_present():  # If a beeper is present here, this means that there are 3 beepers.
+            if beepers_present():  # If a beeper is present here, this means that there are 2 beepers.
                 move()
-                if beepers_present():  # If a beeper is present here, this means that there are 4 beepers.
+                if beepers_present():  # If a beeper is present here, this means that there are 3 beepers.
                     move()
-                    if beepers_present():
+                    if beepers_present():  # If a beeper is present here, this means that there are 4 beepers.
                         move()
-                    else:  # The code in here is specifically for the 8x8 (largest) world.
-                        reverse_direction()
-                        while no_beepers_present():
+                        if beepers_present():  # If a beeper is present here, this means that there are 5 beepers.
                             move()
-                        remove_outer_most_beepers()
-                        while no_beepers_present():
-                            move()
-                        if beepers_present():
-                            move()
+                            # If there is a larger world than 8x8, we can simply repeat remove_outer_most_beepers().
+                            remove_outer_most_beepers()
+                        else:
+                            """
+                            If the world size is 8x8, we can remove the remaining outer most beepers and find 1 of the 2 beepers.
+                            """
+                            reverse_direction()
+                            while no_beepers_present():
+                                move()
+                            remove_outer_most_beepers()
+                            while no_beepers_present():
+                                move()
                             if beepers_present():
                                 move()
                                 if beepers_present():
                                     move()
-                                else:  # This code block handles removing 1 of 2 beepers remaining and landing on the beeper.
-                                    reverse_direction()
-                                    move()
-                                    pick_beeper()
-                                    move()
+                                    if beepers_present():
+                                        move()
+                                    else:  # This code block handles removing 1 of 2 beepers remaining and landing on the beeper.
+                                        reverse_direction()
+                                        move()
+                                        pick_beeper()
+                                        move()
+                    else:
+                        reverse_direction()
+                        while no_beepers_present():
+                            move()
                 else:
                     reverse_direction()
-                    while no_beepers_present():
-                        move()
-            else:
+                    move()
+            else:  # If there is no 2nd beeper. Stop Karel, turn him around, and move back one corner to land on the midpoint.
                 reverse_direction()
                 move()
-        else:  # If there is no 2nd beeper. Stop Karel, turn him around, and move back one corner to land on the midpoint.
+        else:
             reverse_direction()
-            move()
-    else:
-        reverse_direction()
 
 
 # def check_smaller_worlds():
