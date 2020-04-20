@@ -46,6 +46,9 @@ def place_beepers_on_row():
 
 
 def remove_outer_most_beepers():
+    """
+    When this function is called, it tells Karel to find the outer-most beepers and remove them.
+    """
     if beepers_present():
         if front_is_clear():  # Check to make sure that front_is_clear() (1x1).
             pick_beeper()
@@ -54,11 +57,24 @@ def remove_outer_most_beepers():
                 move()  # In other words, Karel will move until it has reached the corner adjacent to the wall.
             reverse_direction()  # Face Karel in the opposite direction.
             while no_beepers_present():  # Karel will continue to move the opposite direction if there are no beepers.
-                move()  # We can safely assume that Karel will move until he arrives at a corner with a beeper (outer-most beeper).
+                move()
+                """
+                We can safely assume that Karel will move until he arrives at a corner with a beeper (outer-most beeper).
+                """
             pick_beeper()  # Then Karel will simply pick the outer-most beeper up.
 
 
-def check_surrounding():  # This function assumes Karel is now standing on a corner with no beeper.
+def check_surrounding():
+    """
+    This function assumes Karel is now standing on a corner with no beeper.
+    When this function is called, Karel checks to see if the front_is_clear() and if a beepers_present().
+    If the front is not clear, Karel will simply turn to face the opposite direction.
+    Else, Karel will check for a beeper. If a beeper exists, Karel will continue to move until Karel realizes
+    it's a 8x8 world. In the case of an 8x8 world, the remove_outer_most_beepers() function is called to
+    eliminate the remaining outer beepers.
+    Finally, Karel will manually remove 1 of 2 remaining beepers in the 8x8 world and end up positioned on the
+    remaining beeper.
+    """
     while no_beepers_present():  # Karel will move until it reaches a corner with a beeper.
         if front_is_clear():  # For smaller world (2x2). If the front is clear keep moving.
             move()  # We can safely assume that this is the outer-most beeper.
@@ -68,6 +84,7 @@ def check_surrounding():  # This function assumes Karel is now standing on a cor
         """
         Since we know the largest world is 8x8, if a beeper is present,
         we will hard code a manual check for other beepers.
+        ----
         The else statements will handle smaller worlds and the If statements
         will handle larger worlds.
         """
@@ -116,32 +133,22 @@ def check_surrounding():  # This function assumes Karel is now standing on a cor
                 else:
                     reverse_direction()
                     move()
-            else:  # If there is no 2nd beeper. Stop Karel, turn him around, and move back one corner to land on the midpoint.
+            else:
+                """
+                If there is no 2nd beeper. Stop Karel, turn him around, and move back one corner to land on the midpoint.
+                """
                 reverse_direction()
                 move()
         else:
             reverse_direction()
 
 
-# def check_smaller_worlds():
-#     if beepers_present():
-
-
-# def move_while_paint_is_gray():
-#     while corner_color_is(GRAY):
-#         move()
-
-
 def reverse_direction():
+    """
+    Turns Karel around to face the opposite direction.
+    """
     turn_left()
     turn_left()
-
-
-def return_to_beeper_position():
-    turn_left()
-    turn_left()
-    while no_beepers_present():
-        move()
 
 
 # There is no need to edit code beyond this point
