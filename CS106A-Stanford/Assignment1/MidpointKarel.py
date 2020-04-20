@@ -86,7 +86,8 @@ def check_surrounding():  # This function assumes Karel is now standing on a cor
                             remove_outer_most_beepers()
                         else:
                             """
-                            If the world size is 8x8, we can remove the remaining outer most beepers and find 1 of the 2 beepers.
+                            If the world size is 8x8, we can remove the remaining outer most beepers and find 
+                            1 of the 2 beepers.
                             """
                             reverse_direction()
                             while no_beepers_present():
@@ -105,8 +106,11 @@ def check_surrounding():  # This function assumes Karel is now standing on a cor
                                         move()
                                         pick_beeper()
                                         move()
-                    else:
+                    else:  # For 7x7 world.
                         reverse_direction()
+                        while no_beepers_present():
+                            move()
+                        remove_outer_most_beepers()
                         while no_beepers_present():
                             move()
                 else:
