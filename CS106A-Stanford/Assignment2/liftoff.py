@@ -5,6 +5,8 @@ This program writes out the calls for a spaceship that is about to launch.
 It counts down the numbers from 10 to 1 and then writes “Liftoff!”
 """
 
+COUNTDOWN_START = 10
+
 
 def main():
     """
@@ -14,7 +16,6 @@ def main():
     will be decremented by 1.
     After the for loop has completed running, I simply printed the string "Lift Off!"
     """
-    COUNTDOWN_START = 10
     countdown = 10
     for i in range(COUNTDOWN_START):
         print(str(countdown) + '...')

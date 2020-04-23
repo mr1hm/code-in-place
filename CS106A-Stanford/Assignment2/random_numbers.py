@@ -7,6 +7,10 @@ range from MIN_RANDOM to MAX_RANDOM, inclusive
 
 import random
 
+NUM_RANDOM = 10
+MIN_RANDOM = 0
+MAX_RANDOM = 100
+
 
 def main():
     """
@@ -17,9 +21,6 @@ def main():
     A for loop is used to run the random.randint() function 10 times automatically and increments num_label
     by 1 every time a single loop has completed.
     """
-    NUM_RANDOM = 10
-    MIN_RANDOM = 0
-    MAX_RANDOM = 100
     num_label = 1
     print('Printing ten random integers...')
     for i in range(NUM_RANDOM):
