@@ -22,7 +22,7 @@ def main():
     """
     place_beepers_on_row()
     remove_outer_most_beepers()
-    check_surrounding()
+    # check_surrounding()
 
 
 def place_beepers_on_row():
@@ -49,8 +49,8 @@ def remove_outer_most_beepers():
     """
     When this function is called, it tells Karel to find the outer-most beepers and remove them.
     """
-    if beepers_present():
-        if front_is_clear():  # Check to make sure that front_is_clear() (1x1).
+    if front_is_clear():  # A check to make sure that front_is_clear() (1x1).
+        if beepers_present():
             pick_beeper()
             move()
             while beepers_present():  # Karel will move until he lands on the first corner with no beeper.
