@@ -12,15 +12,22 @@ MAX_VALUE = 100
 
 def main():
     """
-    You should write your code for this program in this function.
-    Make sure to delete the 'pass' line before starting to write
-    your own code. You should also delete this comment and replace
-    it with a better, more descriptive one.
+    We simply call the guess_correct_sum() function.
     """
     guess_correct_sum()
 
 
 def guess_correct_sum():
+    """
+    Since the user has to guess 3 addition problems correctly in order to win, I first create a variable that tracks
+    the amount of correct_answers.
+    I then create a while loop to continuously run until correct_answers has reached a value of 3.
+    I used the random library to have Python generate random numbers based on the constant MIN_VALUE and MAX_VALUE.
+    The sum_numbers variable stores the correct answer.
+    Then it asks the user for an input which is stored in user_answer.
+    If the user_answer is equal to sum_numbers, then correct_answers is incremented by 1.
+    Else, correct_answers is reset to 0 and we print the correct answer to the terminal.
+    """
     correct_answers = 0
     while correct_answers < 3:
         num1 = random.randint(MIN_VALUE, MAX_VALUE)
