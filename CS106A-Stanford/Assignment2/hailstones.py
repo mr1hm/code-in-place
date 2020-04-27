@@ -16,6 +16,8 @@ def main():
 
 def hailstones_logic():
     """
+    First, we check to make sure that the integer the user has given is positive. If it's a negative integer,
+    we run a while loop until the user enters a positive integer and reassign the variable 'n' to the valid integer.
     Since the logic of the hailstone sequence begins by checking whether or not the integer is even or odd, we use
     the modulus operator to check whether or not the integer when divided by 2 returns 0 or 1.
     If a 0 is returned, it means that there was no remainder and 2 was divided evenly among the integer.
@@ -26,6 +28,9 @@ def hailstones_logic():
     A while loop is in place so that these 2 checks continuously run until our variable 'n' has reached the value of 1.
     """
     n = int(input('Please enter a positive integer: '))
+    while n < 0:
+        print("That's not a positive integer... ")
+        n = int(input('Please enter a POSITIVE integer: '))
     count = 0
     while n != 1:
         if n % 2 == 0:
