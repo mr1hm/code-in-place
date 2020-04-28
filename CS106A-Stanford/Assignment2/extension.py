@@ -63,22 +63,22 @@ def logic(difficulty):
         if check_type(user_answer, answer, correct_answers):
             questions_remaining = 3 - correct_answers
             correct_answers += 1
-            if correct_answers < 3:
-                print('Correct! Next question... You have ' + str(questions_remaining - 1) + ' questions remaining...')
-                print('Starting next question in 5 seconds...')
+            if correct_answers != 3:
+                print('Correct! You have ' + str(questions_remaining - 1) +
+                      ' questions remaining...')
             else:
                 print('Correct!')
+                if difficulty == 'e':
+                    print('You mastered addition and subtraction!')
+                if difficulty == 'm':
+                    print('You mastered addition, subtraction and multiplication!')
+                if difficulty == 'h':
+                    print('Wow... Not bad...')
+                if difficulty == 'g':
+                    print('Okay okay... You are a math GOD')
         else:
             correct_answers = 0
             print("That's not quite right...")
-    if difficulty == 'e':
-        print('You mastered addition and subtraction!')
-    if difficulty == 'm':
-        print('You mastered addition, subtraction and multiplication!')
-    if difficulty == 'h':
-        print('Wow... Not bad...')
-    if difficulty == 'g':
-        print('Okay okay... You are a math GOD')
 
 
 def check_type(user_input, answer, correct_answers):
