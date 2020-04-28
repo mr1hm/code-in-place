@@ -17,41 +17,33 @@ def main():
     it with a better, more descriptive one.
     """
     difficulty = input("Please select a difficulty ('e' for easy, 'm' for medium, 'h' for hard, 'g' for genius): ")
-    logic(difficulty)
     if difficulty == 'e':
         print('This will test your addition and subtraction skills...')
-        print('You have 10 seconds to guess a correct answer for each problem...')
     if difficulty == 'm':
         print('This will test your addition, subtraction and multiplication skills...')
-        print('You have 10 seconds to guess a correct answer for each problem...')
     if difficulty == 'h':
         print('This will test your addition, subtraction, multiplication and division skills...')
-        print('You have 10 seconds to guess a correct answer for each problem...')
     if difficulty == 'g':
         print('This will test your addition, subtraction, multiplication and division skills...')
-        print('You have 5 seconds to guess a correct answer for each problem...')
+    logic(difficulty)
 
 
 def logic(difficulty):
     if difficulty == 'e':
         min_value = 0
         max_value = 50
-        time_given = 10
         operators = ['+', '-']
     if difficulty == 'm':
         min_value = 0
         max_value = 75
-        time_given = 10
         operators = ['+', '-', '*']
     if difficulty == 'h':
         min_value = 0
         max_value = 100
-        time_given = 10
         operators = ['+', '-', '*', '/']
     if difficulty == 'g':
         min_value = 50
         max_value = 150
-        time_given = 5
         operators = ['+', '-', '*', '/']
     correct_answers = 0
     while correct_answers < 3:
@@ -66,18 +58,39 @@ def logic(difficulty):
             answer = num1 * num2
         if operators[random_index] == '/':
             answer = num1 / num2
-        print('What is ' + str(num1) + operators[random_index] + str(num2) + '?')
-        print('Timer has started...')
-        Timer(time_given, countdown_and_check_input).start()
-        user_answer = int(input('Your answer: '))
-        if user_answer == '':
-            print('Make sure to enter a integer value...')
-            return
+        print('What is ' + str(num1) + ' ' + operators[random_index] + ' ' + str(num2) + '?')
+        user_answer = input('Your answer: ')
+        if check_type(user_answer, answer, correct_answers):
+            questions_remaining = 3 - correct_answers
+            correct_answers += 1
+            if correct_answers < 3:
+                print('Correct! Next question... You have ' + str(questions_remaining - 1) + ' questions remaining...')
+                print('Starting next question in 5 seconds...')
+            else:
+                print('Correct!')
+        else:
+            correct_answers = 0
+            print("That's not quite right...")
+    if difficulty == 'e':
+        print('You mastered addition and subtraction!')
+    if difficulty == 'm':
+        print('You mastered addition, subtraction and multiplication!')
+    if difficulty == 'h':
+        print('Wow... Not bad...')
+    if difficulty == 'g':
+        print('Okay okay... You are a math GOD')
 
 
-def countdown_and_check_input():
-    print('Sorry, you missed your chance!')
-    return
+def check_type(user_input, answer, correct_answers):
+    user_input = int(user_input)
+    if isinstance(user_input, int):
+        if int(user_input) != answer:
+            return False
+        else:
+            return True
+    else:
+        print("That's DEFINITELY not right...")
+        return False
 
 
 # This provided line is required at the end of a Python file
