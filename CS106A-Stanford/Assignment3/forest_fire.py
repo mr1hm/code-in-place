@@ -25,6 +25,16 @@ def find_flames(filename):
     """
     image = SimpleImage(filename)
     # TODO: your code here
+    for pixel in image:
+        average = (pixel.red + pixel.green + pixel.blue) / 3
+        if pixel.red >= average:
+            pixel.red = 255
+            pixel.blue = 0
+            pixel.green = 0
+        else:
+            pixel.red = average
+            pixel.blue = average
+            pixel.green = average
     return image
 
 def main():
