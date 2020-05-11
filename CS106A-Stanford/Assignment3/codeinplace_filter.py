@@ -18,6 +18,10 @@ def main():
 
     # Apply the filter
     # TODO: your code here
+    for pixel in image:
+        pixel.red = pixel.red * 1.5
+        pixel.green = pixel.green * 0.7
+        pixel.blue = pixel.blue * 1.5
 
     # Show the image after the transform
     image.show()
