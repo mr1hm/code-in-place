@@ -3,14 +3,25 @@ import random
 
 
 def main():
+    """
+    First, I initialize user_selection_incorrect to TRUE so that it triggers the while loop to run as long as
+    user_selection_incorrect is TRUE.
+    In the while loop, the terminal asks the user for a response of 'fate' or 'specify', if the user response is neither
+    of these, the while loop will continue to run until the user responds with one of the 2 values. If the user responds
+    with one of the 2 values, I reassign the user_selection_incorrect variable to FALSE and the while loop will no
+    longer run.
+    The if conditions that follow afterwards are to check which of the 2 values was specified. If it was 'fate', the
+    program will call the random_tip() function to generate a random tip float value and then run calculations for
+    the check total + tip. If it was 'specify', the program will ask the user to input a tip amount and then call the
+    calculate_grand_total() function.
+    """
     print('Tip Calculator v1.0...')
     user_selection_incorrect = True
     check_amount = float(input('Please enter the check total: '))
     print("If you would like to specify a tip amount (in percentage) please type 'specify' and press enter. "
           "Otherwise, you can let fate decide by typing 'fate' and pressing enter")
-    user_selection = input('Please enter your response: ')
     while user_selection_incorrect:
-        user_selection = input("Please enter either 'specify' or 'fate': ")
+        user_selection = input("Please enter your response (either 'specify' or 'fate'): ")
         if user_selection == 'specify' or user_selection == 'fate':
             user_selection_incorrect = False
     if user_selection == 'fate' or user_selection == 'specify':
